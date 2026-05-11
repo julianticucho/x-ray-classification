@@ -21,7 +21,7 @@ pip install -r requirements.txt
 ## Estructura del Repositorio
 
 ```
-chestx-classification/
+x-ray-classification/
 ├── datasets/           # almacenar los datasets (se crea al descargar datos)
 ├── notebooks/          # notebooks para análisis 
 ├── results/            # modelos entrenados, gráficos, etc...
