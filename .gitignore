@@ -2,4 +2,7 @@ venv/
 .vscode/
 datasets/
 results/models/
+results/confusion/
+results/roc/
 __pycache__/
+preprocessing.txt
