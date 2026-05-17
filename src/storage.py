@@ -41,9 +41,19 @@ def load_test_dataloader(filepath):
     save_dict = torch.load(filepath)
     labels_df = pd.read_csv(save_dict['labels_dir'])
     pp_factory = PreprocessingConfigFactory(labels_df)
-    _, test_df = pp_factory.get(save_dict['preprocessing_name'])
-    dl_factory = DataLoaderFactory(test_df, save_dict['img_dir'])
+    _, _, test_df = pp_factory.get(save_dict['preprocessing_name'])
+    dl_factory = DataLoaderFactory(test_df, save_dict['img_dir'], is_train=False)
     return dl_factory.get(save_dict['dataloader_name'])
+
+def load_train_dataloader(filepath):
+    """Carga el DataLoader de train desde un archivo de modelo guardado."""
+    save_dict = torch.load(filepath)
+    labels_df = pd.read_csv(save_dict['labels_dir'])
+    pp_factory = PreprocessingConfigFactory(labels_df)
+    train_df, _, _ = pp_factory.get(save_dict['preprocessing_name'])
+    dl_factory = DataLoaderFactory(train_df, save_dict['img_dir'], is_train=False)
+    return dl_factory.get(save_dict['dataloader_name'])
+
 
 
     
