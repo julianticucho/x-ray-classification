@@ -118,6 +118,9 @@ class DenseNetBinary(BaseModel):
     
     def __init__(self):
         super(DenseNetBinary, self).__init__()
+        
+        # cargamos el modelo de DenseNet-121 preentrenado
+        # se reemplaza el clasificador para una tarea binaria
         self.model = torchvision_models.densenet121(weights=torchvision_models.DenseNet121_Weights.DEFAULT)
         num_ftrs = self.model.classifier.in_features
         self.model.classifier = nn.Linear(num_ftrs, 1)
@@ -127,10 +130,12 @@ class DenseNetBinary(BaseModel):
     def forward(self, x):
         return self.model(x)
         
-    def train_model(self, dataloader, val_dataloader=None, lr=0.001, device=None, num_epochs=30, patience=7):
-        """Sobrescribe train_model para calcular pesos, usar Weighted BCE, scheduler, y early stopping."""
+    def train_model(self, dataloader, val_dataloader, lr=0.001, device=None, num_epochs=1):
+        """Sobrescribe train_model para calcular pesos, usar Weighted BCE y scheduler."""
         import copy
         
+        # calculo de pesos de clases a partir del dataloader de entrenamiento
+        # para tener en cuenta el desbalance de clases 
         print("Calculando pesos de clases (w_pos, w_neg) a partir del dataloader...")
         num_pos = 0
         num_neg = 0
@@ -144,41 +149,51 @@ class DenseNetBinary(BaseModel):
         w_neg = num_pos / total if total > 0 else 0
         print(f"Pesos calculados: w_pos={w_pos:.4f}, w_neg={w_neg:.4f}")
         
+        # setear device para transferir el modelo 
+        # convertir pesos de clases a tensores y enviarlos a device
         if device is None:
             device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         print(f"Device: {device}")
-            
         w_pos_tensor = torch.tensor(w_pos, dtype=torch.float32).to(device)
         w_neg_tensor = torch.tensor(w_neg, dtype=torch.float32).to(device)
         
+        # funcion de loss tipo Weighted BCE:
+        # loss = BCE(y, y') * (w_pos * y + w_neg * (1-y)) 
         def weighted_loss(logits, targets):
             bce = F.binary_cross_entropy_with_logits(logits, targets, reduction='none')
             weight_matrix = targets * w_pos_tensor + (1 - targets) * w_neg_tensor
             return (bce * weight_matrix).mean()
-            
         self.criterion = weighted_loss
         
-        # training logic specific to DenseNetBinary
+        # se usa un optimizador Adam con un learning rate inicial
+        # y un scheduler para reducir el learning rate en un factor 
+        # de 0.1 cuando la validación no mejora por 2 épocas seguidas
         self.optimizer = optim.Adam(self.parameters(), lr=lr)
         self.to(device)
+        scheduler = optim.lr_scheduler.ReduceLROnPlateau(
+            self.optimizer, mode='min', factor=0.1, patience=2
+        )
         
-        scheduler = optim.lr_scheduler.ReduceLROnPlateau(self.optimizer, mode='min', factor=0.1, patience=2)
-        
+        # se guardara solo el modelo con mejor validation loss
+        # ademas listas con loss de train y validation por epoca
         best_val_loss = float('inf')
         best_model_wts = copy.deepcopy(self.state_dict())
-        patience_counter = 0
-        
+        self.train_losses = []
+        self.val_losses = []
+
+        # bucle de entrenamiento
         for epoch in range(num_epochs):
             self.train()
             running_loss = 0.0
-            
             for images, labels in tqdm(dataloader, desc=f"Epoch {epoch+1}/{num_epochs} [Train]"):
                 images = images.to(device)
                 labels = labels.to(device)
                 
+                # forward pass
                 outputs = self(images)
                 loss = self.criterion(outputs, labels)
                 
+                # backward pass
                 self.optimizer.zero_grad()
                 loss.backward()
                 self.optimizer.step()
@@ -187,39 +202,43 @@ class DenseNetBinary(BaseModel):
             
             epoch_loss = running_loss / len(dataloader)
             print(f"Epoch {epoch+1}/{num_epochs}, Train Loss: {epoch_loss:.4f}")
+            self.train_losses.append(epoch_loss)
             
-            if val_dataloader is not None:
-                self.eval()
-                val_loss = 0.0
-                with torch.no_grad():
-                    for images, labels in tqdm(val_dataloader, desc=f"Epoch {epoch+1}/{num_epochs} [Val]"):
-                        images = images.to(device)
-                        labels = labels.to(device)
-                        outputs = self(images)
-                        loss = self.criterion(outputs, labels)
-                        val_loss += loss.item()
-                        
-                epoch_val_loss = val_loss / len(val_dataloader)
-                print(f"Epoch {epoch+1}/{num_epochs}, Val Loss: {epoch_val_loss:.4f}")
-                
-                scheduler.step(epoch_val_loss)
-                
-                if epoch_val_loss < best_val_loss:
-                    print(f"Validation loss decreased ({best_val_loss:.4f} --> {epoch_val_loss:.4f}). Saving model...")
-                    best_val_loss = epoch_val_loss
-                    best_model_wts = copy.deepcopy(self.state_dict())
-                    patience_counter = 0
-                else:
-                    patience_counter += 1
-                    print(f"EarlyStopping counter: {patience_counter} out of {patience}")
+            # fase de validacion
+            # evaluamos el modelo en el dataloader de validacion
+            # y calculamos la perdida
+            self.eval()
+            val_loss = 0.0
+            with torch.no_grad():
+                for images, labels in tqdm(val_dataloader, desc=f"Epoch {epoch+1}/{num_epochs} [Val]"):
+                    images = images.to(device)
+                    labels = labels.to(device)
+                    outputs = self(images)
+                    loss = self.criterion(outputs, labels)
+                    val_loss += loss.item()
                     
-                if patience_counter >= patience:
-                    print("Early stopping triggered")
-                    break
-                    
-        if val_dataloader is not None:
-            print(f"Training complete. Best val loss: {best_val_loss:.4f}")
-            self.load_state_dict(best_model_wts)
-            
-        return self
-    
+            epoch_val_loss = val_loss / len(val_dataloader)
+            print(f"Epoch {epoch+1}/{num_epochs}, Val Loss: {epoch_val_loss:.4f}")
+            self.val_losses.append(epoch_val_loss)
+            scheduler.step(epoch_val_loss)
+
+            # guardar el modelo con mejor validation loss
+            if epoch_val_loss < best_val_loss:
+                print("Mejoró la pérdida de validación, guardando el modelo...")
+                best_val_loss = epoch_val_loss
+                best_model_wts = copy.deepcopy(self.state_dict())
+            else:
+                print("Pérdida de validación no mejoró...")
+
+        print(f"Training complete. Best val loss: {best_val_loss:.4f}")
+        self.load_state_dict(best_model_wts)
+        
+        
+    def generate_cam(self, x):
+        # x es un batch de imágenes [Batch_Size, 3, H, W]
+        # devuelve [Batch_Size, H_feat, W_feat]
+        features = self.model.features(x)
+        features = F.relu(features, inplace=False)
+        weights = self.model.classifier.weight[0]
+        cam = torch.einsum('c,bchw->bhw', weights, features)
+        return cam
