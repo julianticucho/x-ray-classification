@@ -12,20 +12,24 @@ def save_model(
     dataloader_name, 
     model_name,
     labels_dir,
-    img_dir, 
+    img_dir,
+    train_losses=None,
+    val_losses=None,
 ):
-    """Guarda el modelo y su configuración en un archivo."""
+    """Guarda el modelo, su configuración y opcionalmente las listas de pérdidas de entrenamiento y validación."""
     save_dict = {
         'state_dict': model.state_dict(),
         'preprocessing_name': preprocessing_name,
         'dataloader_name': dataloader_name,
         'model_name': model_name,
         'labels_dir': labels_dir,
-        'img_dir': img_dir
+        'img_dir': img_dir,
+        'train_losses': train_losses,
+        'val_losses': val_losses,
     }
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
     torch.save(save_dict, filepath)
-    print(f"Model '{model_name}' saved to {filepath}")
+    print(f"Modelo '{model_name}' guardado en {filepath}")
 
 
 def load_model(filepath):
@@ -45,14 +49,7 @@ def load_test_dataloader(filepath):
     dl_factory = DataLoaderFactory(test_df, save_dict['img_dir'], is_train=False)
     return dl_factory.get(save_dict['dataloader_name'])
 
-def load_train_dataloader(filepath):
-    """Carga el DataLoader de train desde un archivo de modelo guardado."""
-    save_dict = torch.load(filepath)
-    labels_df = pd.read_csv(save_dict['labels_dir'])
-    pp_factory = PreprocessingConfigFactory(labels_df)
-    train_df, _, _ = pp_factory.get(save_dict['preprocessing_name'])
-    dl_factory = DataLoaderFactory(train_df, save_dict['img_dir'], is_train=False)
-    return dl_factory.get(save_dict['dataloader_name'])
+
 
 
 

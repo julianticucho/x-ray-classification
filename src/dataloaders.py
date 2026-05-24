@@ -19,6 +19,7 @@ class DataLoaderFactory:
         return {
             'basic': self.create_basic,
             'binary': self.create_binary,
+            'binary_low_res': self.create_binary_low_res,
         }
 
     def get(self, config_name):
@@ -47,6 +48,27 @@ class DataLoaderFactory:
             
         transform_list.extend([
             transforms.ToTensor(),
+            # normalizacion usada en densenet121
+            # https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.densenet121.html
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        ])
+        
+        transform = transforms.Compose(transform_list)
+        dataset = XRayBinaryDataset(self.labels_df, self.img_dir, transform=transform)
+        return DataLoader(dataset, batch_size=16, shuffle=self.is_train, num_workers=self.num_workers)
+
+    def create_binary_low_res(self):
+        """Crea un DataLoader binario con resize 128x128, normalize y random flip (si es train)."""
+        transform_list = [
+            transforms.Resize((128, 128))
+        ]
+        if self.is_train:
+            transform_list.append(transforms.RandomHorizontalFlip())
+            
+        transform_list.extend([
+            transforms.ToTensor(),
+            # normalizacion usada en densenet121
+            # https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.densenet121.html
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
         ])
         
