@@ -71,8 +71,9 @@ python -m scripts.download_full_data
 def config_mi_preprocesamiento(self):
     """Descripción de tu preprocesamiento."""
     # Modifica self.labels_df según necesites
-    train_df, test_df = self._random_split(test_ratio=0.2, seed=42)
-    return train_df, test_df
+    self.labels_df['Patient Age'] = self.labels_df['Patient Age'].apply(self._convert_age)
+    train_df, val_df, test_df = self._random_split(val_ratio=0.1, test_ratio=0.2, seed=0)
+    return train_df, val_df, test_df
 ```
 
 2. Agrégalo a `get_available_configurations()`:
