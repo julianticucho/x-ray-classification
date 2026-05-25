@@ -12,6 +12,7 @@ class PreprocessingConfigFactory:
         return {
             'example': self.config_example,
             'binary': self.config_binary,
+            'effusion': self.config_effusion,
         }
     
     def get(self, config_name):
@@ -31,6 +32,14 @@ class PreprocessingConfigFactory:
         """Configuración binaria para detección de Neumonía."""
         self.labels_df['Pneumonia_Label'] = self.labels_df['Finding Labels'].apply(
             lambda x: 1 if 'Pneumonia' in x else 0
+        )
+        train_df, val_df, test_df = self._patient_split(val_ratio=0.1, test_ratio=0.2, seed=0)
+        return train_df, val_df, test_df
+    
+    def config_effusion(self):
+        """Configuración para detección de Effusion."""
+        self.labels_df['Effusion_Label'] = self.labels_df['Finding Labels'].apply(
+            lambda x: 1 if 'Effusion' in x else 0
         )
         train_df, val_df, test_df = self._patient_split(val_ratio=0.1, test_ratio=0.2, seed=0)
         return train_df, val_df, test_df

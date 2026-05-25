@@ -108,138 +108,206 @@ def generate_batch_cams(
 
 if __name__ == '__main__':
 
-    # full_data_binary_binary_low_res_densenet_binary_1epoch
-    generate_batch_cams(
-        model_path='results/models/full_data_binary_binary_low_res_densenet_binary_1epoch.pth', 
-        num_images=10, 
-        mode='tp', 
-        output_dir='results/cam', 
-        output_prefix='full_data_binary_binary_low_res_densenet_binary_1epoch',
-        seed=1
-    )
-    generate_batch_cams(
-        model_path='results/models/full_data_binary_binary_low_res_densenet_binary_1epoch.pth', 
-        num_images=10, 
-        mode='fp', 
-        output_dir='results/cam', 
-        output_prefix='full_data_binary_binary_low_res_densenet_binary_1epoch',
-        seed=1
-    )
-    generate_batch_cams(
-        model_path='results/models/full_data_binary_binary_low_res_densenet_binary_1epoch.pth', 
-        num_images=10, 
-        mode='fn', 
-        output_dir='results/cam', 
-        output_prefix='full_data_binary_binary_low_res_densenet_binary_1epoch',
-        seed=1
-    )
-    generate_batch_cams(
-        model_path='results/models/full_data_binary_binary_low_res_densenet_binary_1epoch.pth', 
-        num_images=10, 
-        mode='tn', 
-        output_dir='results/cam', 
-        output_prefix='full_data_binary_binary_low_res_densenet_binary_1epoch',
-        seed=1
-    )
+    # # full_data_binary_binary_low_res_densenet_binary_1epoch
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_binary_binary_low_res_densenet_binary_1epoch.pth', 
+    #     num_images=10, 
+    #     mode='tp', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_binary_binary_low_res_densenet_binary_1epoch',
+    #     seed=1
+    # )
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_binary_binary_low_res_densenet_binary_1epoch.pth', 
+    #     num_images=10, 
+    #     mode='fp', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_binary_binary_low_res_densenet_binary_1epoch',
+    #     seed=1
+    # )
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_binary_binary_low_res_densenet_binary_1epoch.pth', 
+    #     num_images=10, 
+    #     mode='fn', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_binary_binary_low_res_densenet_binary_1epoch',
+    #     seed=1
+    # )
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_binary_binary_low_res_densenet_binary_1epoch.pth', 
+    #     num_images=10, 
+    #     mode='tn', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_binary_binary_low_res_densenet_binary_1epoch',
+    #     seed=1
+    # )
 
-    # full_data_binary_binary_low_res_densenet_binary_15epochs
-    generate_batch_cams(
-        model_path='results/models/full_data_binary_binary_low_res_densenet_binary_15epochs.pth', 
-        num_images=10, 
-        mode='tp', 
-        output_dir='results/cam', 
-        output_prefix='full_data_binary_binary_low_res_densenet_binary_15epochs',
-        seed=1
-    )
-    generate_batch_cams(
-        model_path='results/models/full_data_binary_binary_low_res_densenet_binary_15epochs.pth', 
-        num_images=10, 
-        mode='fp', 
-        output_dir='results/cam', 
-        output_prefix='full_data_binary_binary_low_res_densenet_binary_15epochs',
-        seed=1
-    )
-    generate_batch_cams(
-        model_path='results/models/full_data_binary_binary_low_res_densenet_binary_15epochs.pth', 
-        num_images=10, 
-        mode='fn', 
-        output_dir='results/cam', 
-        output_prefix='full_data_binary_binary_low_res_densenet_binary_15epochs',
-        seed=1
-    )
-    generate_batch_cams(
-        model_path='results/models/full_data_binary_binary_low_res_densenet_binary_15epochs.pth', 
-        num_images=10, 
-        mode='tn', 
-        output_dir='results/cam', 
-        output_prefix='full_data_binary_binary_low_res_densenet_binary_15epochs',
-        seed=1
-    )
+    # # full_data_binary_binary_low_res_densenet_binary_15epochs
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_binary_binary_low_res_densenet_binary_15epochs.pth', 
+    #     num_images=10, 
+    #     mode='tp', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_binary_binary_low_res_densenet_binary_15epochs',
+    #     seed=1
+    # )
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_binary_binary_low_res_densenet_binary_15epochs.pth', 
+    #     num_images=10, 
+    #     mode='fp', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_binary_binary_low_res_densenet_binary_15epochs',
+    #     seed=1
+    # )
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_binary_binary_low_res_densenet_binary_15epochs.pth', 
+    #     num_images=10, 
+    #     mode='fn', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_binary_binary_low_res_densenet_binary_15epochs',
+    #     seed=1
+    # )
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_binary_binary_low_res_densenet_binary_15epochs.pth', 
+    #     num_images=10, 
+    #     mode='tn', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_binary_binary_low_res_densenet_binary_15epochs',
+    #     seed=1
+    # )
 
-    # full_data_binary_binary_densenet_binary_1epoch
-    generate_batch_cams(
-        model_path='results/models/full_data_binary_binary_densenet_binary_1epoch.pth', 
-        num_images=10, 
-        mode='tp', 
-        output_dir='results/cam', 
-        output_prefix='full_data_binary_binary_densenet_binary_1epoch',
-        seed=1
-    )
-    generate_batch_cams(
-        model_path='results/models/full_data_binary_binary_densenet_binary_1epoch.pth', 
-        num_images=10, 
-        mode='fp', 
-        output_dir='results/cam', 
-        output_prefix='full_data_binary_binary_densenet_binary_1epoch',
-        seed=1
-    )
-    generate_batch_cams(
-        model_path='results/models/full_data_binary_binary_densenet_binary_1epoch.pth', 
-        num_images=10, 
-        mode='fn', 
-        output_dir='results/cam', 
-        output_prefix='full_data_binary_binary_densenet_binary_1epoch',
-        seed=1
-    )
-    generate_batch_cams(
-        model_path='results/models/full_data_binary_binary_densenet_binary_1epoch.pth', 
-        num_images=10, 
-        mode='tn', 
-        output_dir='results/cam', 
-        output_prefix='full_data_binary_binary_densenet_binary_1epoch',
-        seed=1
-    )
+    # # full_data_binary_binary_densenet_binary_1epoch
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_binary_binary_densenet_binary_1epoch.pth', 
+    #     num_images=10, 
+    #     mode='tp', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_binary_binary_densenet_binary_1epoch',
+    #     seed=1
+    # )
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_binary_binary_densenet_binary_1epoch.pth', 
+    #     num_images=10, 
+    #     mode='fp', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_binary_binary_densenet_binary_1epoch',
+    #     seed=1
+    # )
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_binary_binary_densenet_binary_1epoch.pth', 
+    #     num_images=10, 
+    #     mode='fn', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_binary_binary_densenet_binary_1epoch',
+    #     seed=1
+    # )
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_binary_binary_densenet_binary_1epoch.pth', 
+    #     num_images=10, 
+    #     mode='tn', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_binary_binary_densenet_binary_1epoch',
+    #     seed=1
+    # )
 
-    # full_data_binary_binary_densenet_binary_15epochs
+    # # full_data_binary_binary_densenet_binary_15epochs
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_binary_binary_densenet_binary_15epochs.pth', 
+    #     num_images=10, 
+    #     mode='tp', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_binary_binary_densenet_binary_15epochs',
+    #     seed=1
+    # )
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_binary_binary_densenet_binary_15epochs.pth', 
+    #     num_images=10, 
+    #     mode='fp', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_binary_binary_densenet_binary_15epochs',
+    #     seed=1
+    # )
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_binary_binary_densenet_binary_15epochs.pth', 
+    #     num_images=10, 
+    #     mode='fn', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_binary_binary_densenet_binary_15epochs',
+    #     seed=1
+    # )
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_binary_binary_densenet_binary_15epochs.pth', 
+    #     num_images=10, 
+    #     mode='tn', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_binary_binary_densenet_binary_15epochs',
+    #     seed=1
+    # )
+
+    # full_data_effusion_effusion_low_res_densenet_binary_1epoch
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_effusion_effusion_low_res_densenet_binary_1epoch.pth', 
+    #     num_images=10, 
+    #     mode='tp', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_effusion_effusion_low_res_densenet_binary_1epoch',
+    #     seed=1
+    # )
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_effusion_effusion_low_res_densenet_binary_1epoch.pth', 
+    #     num_images=10, 
+    #     mode='fp', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_effusion_effusion_low_res_densenet_binary_1epoch',
+    #     seed=1
+    # )
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_effusion_effusion_low_res_densenet_binary_1epoch.pth', 
+    #     num_images=10, 
+    #     mode='fn', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_effusion_effusion_low_res_densenet_binary_1epoch',
+    #     seed=1
+    # )
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_effusion_effusion_low_res_densenet_binary_1epoch.pth', 
+    #     num_images=10, 
+    #     mode='tn', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_effusion_effusion_low_res_densenet_binary_1epoch',
+    #     seed=1
+    # )
+
+    # full_data_effusion_effusion_densenet_binary_15epochs
     generate_batch_cams(
-        model_path='results/models/full_data_binary_binary_densenet_binary_15epochs.pth', 
+        model_path='results/models/full_data_effusion_effusion_densenet_binary_15epochs.pth', 
         num_images=10, 
         mode='tp', 
         output_dir='results/cam', 
-        output_prefix='full_data_binary_binary_densenet_binary_15epochs',
+        output_prefix='full_data_effusion_effusion_densenet_binary_15epochs',
         seed=1
     )
     generate_batch_cams(
-        model_path='results/models/full_data_binary_binary_densenet_binary_15epochs.pth', 
+        model_path='results/models/full_data_effusion_effusion_densenet_binary_15epochs.pth', 
         num_images=10, 
         mode='fp', 
         output_dir='results/cam', 
-        output_prefix='full_data_binary_binary_densenet_binary_15epochs',
+        output_prefix='full_data_effusion_effusion_densenet_binary_15epochs',
         seed=1
     )
     generate_batch_cams(
-        model_path='results/models/full_data_binary_binary_densenet_binary_15epochs.pth', 
+        model_path='results/models/full_data_effusion_effusion_densenet_binary_15epochs.pth', 
         num_images=10, 
         mode='fn', 
         output_dir='results/cam', 
-        output_prefix='full_data_binary_binary_densenet_binary_15epochs',
+        output_prefix='full_data_effusion_effusion_densenet_binary_15epochs',
         seed=1
     )
     generate_batch_cams(
-        model_path='results/models/full_data_binary_binary_densenet_binary_15epochs.pth', 
+        model_path='results/models/full_data_effusion_effusion_densenet_binary_15epochs.pth', 
         num_images=10, 
         mode='tn', 
         output_dir='results/cam', 
-        output_prefix='full_data_binary_binary_densenet_binary_15epochs',
+        output_prefix='full_data_effusion_effusion_densenet_binary_15epochs',
         seed=1
     )
