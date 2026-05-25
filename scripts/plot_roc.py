@@ -22,19 +22,23 @@ def plot_roc_and_save(model_path, output_path):
     print(f"Curva ROC guardada en: {output_path}")
 
 if __name__ == '__main__':
+    # plot_roc_and_save(
+    #     model_path='results/models/full_data_binary_binary_low_res_densenet_binary_1epoch.pth',
+    #     output_path='results/roc/full_data_binary_binary_low_res_densenet_binary_1epoch.pdf'
+    # )
+    # plot_roc_and_save(
+    #     model_path='results/models/full_data_binary_binary_low_res_densenet_binary_15epochs.pth',
+    #     output_path='results/roc/full_data_binary_binary_low_res_densenet_binary_15epochs.pdf'
+    # )
+    # plot_roc_and_save(
+    #     model_path='results/models/full_data_binary_binary_densenet_binary_1epoch.pth',
+    #     output_path='results/roc/full_data_binary_binary_densenet_binary_1epoch.pdf'
+    # )
+    # plot_roc_and_save(
+    #     model_path='results/models/full_data_binary_binary_densenet_binary_15epochs.pth',
+    #     output_path='results/roc/full_data_binary_binary_densenet_binary_15epochs.pdf'
+    # )
     plot_roc_and_save(
-        model_path='results/models/full_data_binary_binary_low_res_densenet_binary_1epoch.pth',
-        output_path='results/roc/full_data_binary_binary_low_res_densenet_binary_1epoch.pdf'
-    )
-    plot_roc_and_save(
-        model_path='results/models/full_data_binary_binary_low_res_densenet_binary_15epochs.pth',
-        output_path='results/roc/full_data_binary_binary_low_res_densenet_binary_15epochs.pdf'
-    )
-    plot_roc_and_save(
-        model_path='results/models/full_data_binary_binary_densenet_binary_1epoch.pth',
-        output_path='results/roc/full_data_binary_binary_densenet_binary_1epoch.pdf'
-    )
-    plot_roc_and_save(
-        model_path='results/models/full_data_binary_binary_densenet_binary_15epochs.pth',
-        output_path='results/roc/full_data_binary_binary_densenet_binary_15epochs.pdf'
+        model_path='results/models/full_data_effusion_effusion_densenet_binary_15epochs.pth',
+        output_path='results/roc/full_data_effusion_effusion_densenet_binary_15epochs.pdf'
     )
