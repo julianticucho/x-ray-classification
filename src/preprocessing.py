@@ -13,6 +13,18 @@ class PreprocessingConfigFactory:
             'example': self.config_example,
             'binary': self.config_binary,
             'effusion': self.config_effusion,
+            'atelectasis': self.config_atelectasis,
+            'consolidation': self.config_consolidation,
+            'infiltration': self.config_infiltration,
+            'pneumothorax': self.config_pneumothorax,
+            'edema': self.config_edema,
+            'emphysema': self.config_emphysema,
+            'fibrosis': self.config_fibrosis,
+            'pleural_thickening': self.config_pleural_thickening,
+            'cardiomegaly': self.config_cardiomegaly,
+            'nodule': self.config_nodule,
+            'mass': self.config_mass,
+            'hernia': self.config_hernia
         }
     
     def get(self, config_name):
@@ -44,6 +56,102 @@ class PreprocessingConfigFactory:
         train_df, val_df, test_df = self._patient_split(val_ratio=0.1, test_ratio=0.2, seed=0)
         return train_df, val_df, test_df
     
+    def config_atelectasis(self):
+        """Configuración para detección de Atelectasis."""
+        self.labels_df['Atelectasis_Label'] = self.labels_df['Finding Labels'].apply(
+            lambda x: 1 if 'Atelectasis' in x else 0
+        )
+        train_df, val_df, test_df = self._patient_split(val_ratio=0.1, test_ratio=0.2, seed=0)
+        return train_df, val_df, test_df
+    
+    def config_consolidation(self):
+        """Configuración para detección de Consolidación."""
+        self.labels_df['Consolidation_Label'] = self.labels_df['Finding Labels'].apply(
+            lambda x: 1 if 'Consolidation' in x else 0
+        )
+        train_df, val_df, test_df = self._patient_split(val_ratio=0.1, test_ratio=0.2, seed=0)
+        return train_df, val_df, test_df
+    
+    def config_infiltration(self):
+        """Configuración para detección de Infiltración."""
+        self.labels_df['Infiltration_Label'] = self.labels_df['Finding Labels'].apply(
+            lambda x: 1 if 'Infiltration' in x else 0
+        )
+        train_df, val_df, test_df = self._patient_split(val_ratio=0.1, test_ratio=0.2, seed=0)
+        return train_df, val_df, test_df
+    
+    def config_pneumothorax(self):
+        """Configuración para detección de Pneumothorax."""
+        self.labels_df['Pneumothorax_Label'] = self.labels_df['Finding Labels'].apply(
+            lambda x: 1 if 'Pneumothorax' in x else 0
+        )
+        train_df, val_df, test_df = self._patient_split(val_ratio=0.1, test_ratio=0.2, seed=0)
+        return train_df, val_df, test_df
+    
+    def config_edema(self):
+        """Configuración para detección de Edema."""
+        self.labels_df['Edema_Label'] = self.labels_df['Finding Labels'].apply(
+            lambda x: 1 if 'Edema' in x else 0
+        )
+        train_df, val_df, test_df = self._patient_split(val_ratio=0.1, test_ratio=0.2, seed=0)
+        return train_df, val_df, test_df
+    
+    def config_emphysema(self):
+        """Configuración para detección de Emfisema."""
+        self.labels_df['Emphysema_Label'] = self.labels_df['Finding Labels'].apply(
+            lambda x: 1 if 'Emphysema' in x else 0
+        )
+        train_df, val_df, test_df = self._patient_split(val_ratio=0.1, test_ratio=0.2, seed=0)
+        return train_df, val_df, test_df
+    
+    def config_fibrosis(self):
+        """Configuración para detección de Fibrosis."""
+        self.labels_df['Fibrosis_Label'] = self.labels_df['Finding Labels'].apply(
+            lambda x: 1 if 'Fibrosis' in x else 0
+        )
+        train_df, val_df, test_df = self._patient_split(val_ratio=0.1, test_ratio=0.2, seed=0)
+        return train_df, val_df, test_df
+    
+    def config_pleural_thickening(self):
+        """Configuración para detección de Pleural Thickening."""
+        self.labels_df['Pleural_Thickening_Label'] = self.labels_df['Finding Labels'].apply(
+            lambda x: 1 if 'Pleural_Thickening' in x else 0
+        )
+        train_df, val_df, test_df = self._patient_split(val_ratio=0.1, test_ratio=0.2, seed=0)
+        return train_df, val_df, test_df
+    
+    def config_cardiomegaly(self):
+        """Configuración para detección de Cardiomegaly."""
+        self.labels_df['Cardiomegaly_Label'] = self.labels_df['Finding Labels'].apply(
+            lambda x: 1 if 'Cardiomegaly' in x else 0
+        )
+        train_df, val_df, test_df = self._patient_split(val_ratio=0.1, test_ratio=0.2, seed=0)
+        return train_df, val_df, test_df
+    
+    def config_nodule(self):
+        """Configuración para detección de Nodule."""
+        self.labels_df['Nodule_Label'] = self.labels_df['Finding Labels'].apply(
+            lambda x: 1 if 'Nodule' in x else 0
+        )
+        train_df, val_df, test_df = self._patient_split(val_ratio=0.1, test_ratio=0.2, seed=0)
+        return train_df, val_df, test_df
+
+    def config_mass(self):
+        """Configuración para detección de Mass."""
+        self.labels_df['Mass_Label'] = self.labels_df['Finding Labels'].apply(
+            lambda x: 1 if 'Mass' in x else 0
+        )
+        train_df, val_df, test_df = self._patient_split(val_ratio=0.1, test_ratio=0.2, seed=0)
+        return train_df, val_df, test_df
+
+    def config_hernia(self):
+        """Configuración para detección de Hernia."""
+        self.labels_df['Hernia_Label'] = self.labels_df['Finding Labels'].apply(
+            lambda x: 1 if 'Hernia' in x else 0
+        )
+        train_df, val_df, test_df = self._patient_split(val_ratio=0.1, test_ratio=0.2, seed=0)
+        return train_df, val_df, test_df
+
     def _convert_age(self, age_str):
         """Convierte string de edad (Y/M/D) a años."""
         if isinstance(age_str, (int, float)):

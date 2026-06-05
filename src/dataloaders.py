@@ -1,7 +1,15 @@
 import torch
 from torch.utils.data import DataLoader, Subset
 from torchvision import transforms
-from src.datasets import XRayDataset, XRayBinaryDataset, XRayEffusionDataset
+from src.datasets import (
+    XRayDataset, XRayBinaryDataset, 
+    XRayEffusionDataset, XRayAtelectasisDataset,
+    XRayConsolidationDataset, XRayInfiltrationDataset,
+    XRayPneumothoraxDataset, XRayEdemaDataset,
+    XRayEmphysemaDataset, XRayFibrosisDataset,
+    XRayPleuralThickeningDataset, XRayCardiomegalyDataset,
+    XRayNoduleDataset, XRayMassDataset, XRayHerniaDataset
+    )
 
 
 class DataLoaderFactory:
@@ -21,7 +29,19 @@ class DataLoaderFactory:
             'binary': self.create_binary,
             'binary_low_res': self.create_binary_low_res,
             'effusion': self.create_effusion,
-            'effusion_low_res': self.create_effusion_low_res
+            'effusion_low_res': self.create_effusion_low_res,
+            'atelectasis_low_res': self.create_atelectasis_low_res,
+            'consolidation_low_res': self.create_consolidation_low_res,
+            'infiltration_low_res': self.create_infiltration_low_res,
+            'pneumothorax_low_res': self.create_pneumothorax_low_res,
+            'edema_low_res': self.create_edema_low_res,
+            'emphysema_low_res': self.create_emphysema_low_res,
+            'fibrosis_low_res': self.create_fibrosis_low_res,
+            'pleural_thickening_low_res': self.create_pleural_thickening_low_res,
+            'cardiomegaly_low_res': self.create_cardiomegaly_low_res,
+            'nodule_low_res': self.create_nodule_low_res,
+            'mass_low_res': self.create_mass_low_res,
+            'hernia_low_res': self.create_hernia_low_res
         }
 
     def get(self, config_name):
@@ -113,6 +133,223 @@ class DataLoaderFactory:
         transform = transforms.Compose(transform_list)
         dataset = XRayEffusionDataset(self.labels_df, self.img_dir, transform=transform)
         return DataLoader(dataset, batch_size=16, shuffle=self.is_train, num_workers=self.num_workers)
+    
+    def create_atelectasis_low_res(self):
+        transform_list = [
+            transforms.Resize((128, 128))
+        ]
+        if self.is_train:
+            transform_list.append(transforms.RandomHorizontalFlip())
+            
+        transform_list.extend([
+            transforms.ToTensor(),
+            # normalizacion usada en densenet121
+            # https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.densenet121.html
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        ])
+        
+        transform = transforms.Compose(transform_list)
+        dataset = XRayAtelectasisDataset(self.labels_df, self.img_dir, transform=transform)
+        return DataLoader(dataset, batch_size=16, shuffle=self.is_train, num_workers=self.num_workers)
+
+    def create_consolidation_low_res(self):
+        transform_list = [
+            transforms.Resize((128, 128))
+        ]
+        if self.is_train:
+            transform_list.append(transforms.RandomHorizontalFlip())
+            
+        transform_list.extend([
+            transforms.ToTensor(),
+            # normalizacion usada en densenet121
+            # https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.densenet121.html
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        ])
+        
+        transform = transforms.Compose(transform_list)
+        dataset = XRayConsolidationDataset(self.labels_df, self.img_dir, transform=transform)
+        return DataLoader(dataset, batch_size=16, shuffle=self.is_train, num_workers=self.num_workers)
+
+    def create_infiltration_low_res(self):
+        transform_list = [
+            transforms.Resize((128, 128))
+        ]
+        if self.is_train:
+            transform_list.append(transforms.RandomHorizontalFlip())
+            
+        transform_list.extend([
+            transforms.ToTensor(),
+            # normalizacion usada en densenet121
+            # https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.densenet121.html
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        ])
+        
+        transform = transforms.Compose(transform_list)
+        dataset = XRayInfiltrationDataset(self.labels_df, self.img_dir, transform=transform)
+        return DataLoader(dataset, batch_size=16, shuffle=self.is_train, num_workers=self.num_workers)
+
+    def create_pneumothorax_low_res(self):
+        transform_list = [
+            transforms.Resize((128, 128))
+        ]
+        if self.is_train:
+            transform_list.append(transforms.RandomHorizontalFlip())
+            
+        transform_list.extend([
+            transforms.ToTensor(),
+            # normalizacion usada en densenet121
+            # https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.densenet121.html
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        ])
+        
+        transform = transforms.Compose(transform_list)
+        dataset = XRayPneumothoraxDataset(self.labels_df, self.img_dir, transform=transform)
+        return DataLoader(dataset, batch_size=16, shuffle=self.is_train, num_workers=self.num_workers)
+
+    def create_edema_low_res(self):
+        transform_list = [
+            transforms.Resize((128, 128))
+        ]
+        if self.is_train:
+            transform_list.append(transforms.RandomHorizontalFlip())
+            
+        transform_list.extend([
+            transforms.ToTensor(),
+            # normalizacion usada en densenet121
+            # https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.densenet121.html
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        ])
+        
+        transform = transforms.Compose(transform_list)
+        dataset = XRayEdemaDataset(self.labels_df, self.img_dir, transform=transform)
+        return DataLoader(dataset, batch_size=16, shuffle=self.is_train, num_workers=self.num_workers)
+
+    def create_emphysema_low_res(self):
+        transform_list = [
+            transforms.Resize((128, 128))
+        ]
+        if self.is_train:
+            transform_list.append(transforms.RandomHorizontalFlip())
+            
+        transform_list.extend([
+            transforms.ToTensor(),
+            # normalizacion usada en densenet121
+            # https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.densenet121.html
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        ])
+        
+        transform = transforms.Compose(transform_list)
+        dataset = XRayEmphysemaDataset(self.labels_df, self.img_dir, transform=transform)
+        return DataLoader(dataset, batch_size=16, shuffle=self.is_train, num_workers=self.num_workers)
+
+    def create_fibrosis_low_res(self):
+        transform_list = [
+            transforms.Resize((128, 128))
+        ]
+        if self.is_train:
+            transform_list.append(transforms.RandomHorizontalFlip())
+            
+        transform_list.extend([
+            transforms.ToTensor(),
+            # normalizacion usada en densenet121
+            # https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.densenet121.html
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        ])
+        
+        transform = transforms.Compose(transform_list)
+        dataset = XRayFibrosisDataset(self.labels_df, self.img_dir, transform=transform)
+        return DataLoader(dataset, batch_size=16, shuffle=self.is_train, num_workers=self.num_workers)
+
+    def create_pleural_thickening_low_res(self):
+        transform_list = [
+            transforms.Resize((128, 128))
+        ]
+        if self.is_train:
+            transform_list.append(transforms.RandomHorizontalFlip())
+            
+        transform_list.extend([
+            transforms.ToTensor(),
+            # normalizacion usada en densenet121
+            # https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.densenet121.html
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        ])
+        
+        transform = transforms.Compose(transform_list)
+        dataset = XRayPleuralThickeningDataset(self.labels_df, self.img_dir, transform=transform)
+        return DataLoader(dataset, batch_size=16, shuffle=self.is_train, num_workers=self.num_workers)
+
+    def create_cardiomegaly_low_res(self):
+        transform_list = [
+            transforms.Resize((128, 128))
+        ]
+        if self.is_train:
+            transform_list.append(transforms.RandomHorizontalFlip())
+            
+        transform_list.extend([
+            transforms.ToTensor(),
+            # normalizacion usada en densenet121
+            # https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.densenet121.html
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        ])
+        
+        transform = transforms.Compose(transform_list)
+        dataset = XRayCardiomegalyDataset(self.labels_df, self.img_dir, transform=transform)
+        return DataLoader(dataset, batch_size=16, shuffle=self.is_train, num_workers=self.num_workers)
+
+    def create_nodule_low_res(self):
+        transform_list = [
+            transforms.Resize((128, 128))
+        ]
+        if self.is_train:
+            transform_list.append(transforms.RandomHorizontalFlip())
+            
+        transform_list.extend([
+            transforms.ToTensor(),
+            # normalizacion usada en densenet121
+            # https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.densenet121.html
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        ])
+        
+        transform = transforms.Compose(transform_list)
+        dataset = XRayNoduleDataset(self.labels_df, self.img_dir, transform=transform)
+        return DataLoader(dataset, batch_size=16, shuffle=self.is_train, num_workers=self.num_workers)
+
+    def create_mass_low_res(self):
+        transform_list = [
+            transforms.Resize((128, 128))
+        ]
+        if self.is_train:
+            transform_list.append(transforms.RandomHorizontalFlip())
+            
+        transform_list.extend([
+            transforms.ToTensor(),
+            # normalizacion usada en densenet121
+            # https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.densenet121.html
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        ])
+        
+        transform = transforms.Compose(transform_list)
+        dataset = XRayMassDataset(self.labels_df, self.img_dir, transform=transform)
+        return DataLoader(dataset, batch_size=16, shuffle=self.is_train, num_workers=self.num_workers)
+    
+    def create_hernia_low_res(self):
+        transform_list = [
+            transforms.Resize((128, 128))
+        ]
+        if self.is_train:
+            transform_list.append(transforms.RandomHorizontalFlip())
+            
+        transform_list.extend([
+            transforms.ToTensor(),
+            # normalizacion usada en densenet121
+            # https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.densenet121.html
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        ])
+        
+        transform = transforms.Compose(transform_list)
+        dataset = XRayHerniaDataset(self.labels_df, self.img_dir, transform=transform)
+        return DataLoader(dataset, batch_size=16, shuffle=self.is_train, num_workers=self.num_workers)
+
     
     
 
