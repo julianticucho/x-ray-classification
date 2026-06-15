@@ -600,11 +600,43 @@ class XRayHerniaDataset(Dataset):
         if labels_str != 'No Finding':
             if 'Hernia' in labels_str.split('|'):
                 label = 1
-                
+
         label_tensor = torch.tensor([label], dtype=torch.float32)
-        
+
         if self.transform:
             image = self.transform(image)
-            
+
+        return image, label_tensor
+
+
+class XRayGenderDataset(Dataset):
+    """Dataset de radiografías de tórax con etiquetas binarias (Género: M=1, F=0)."""
+
+    def __init__(self, labels_df, img_dir, transform=None):
+        self.labels_df = labels_df
+        self.img_dir = img_dir if isinstance(img_dir, list) else [img_dir]
+        self.transform = transform
+
+    def __len__(self):
+        return len(self.labels_df)
+
+    def __getitem__(self, idx):
+        img_name = self.labels_df.iloc[idx]['Image Index']
+        img_path = None
+        for directory in self.img_dir:
+            path = os.path.join(directory, img_name)
+            if os.path.exists(path):
+                img_path = path
+                break
+        if img_path is None:
+            raise FileNotFoundError(f"Imagen {img_name} no encontrada en ningún directorio")
+        image = Image.open(img_path).convert('RGB')
+
+        label = 1 if self.labels_df.iloc[idx]['Patient Gender'] == 'F' else 0
+        label_tensor = torch.tensor([label], dtype=torch.float32)
+
+        if self.transform:
+            image = self.transform(image)
+
         return image, label_tensor
 

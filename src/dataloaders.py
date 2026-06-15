@@ -8,7 +8,8 @@ from src.datasets import (
     XRayPneumothoraxDataset, XRayEdemaDataset,
     XRayEmphysemaDataset, XRayFibrosisDataset,
     XRayPleuralThickeningDataset, XRayCardiomegalyDataset,
-    XRayNoduleDataset, XRayMassDataset, XRayHerniaDataset
+    XRayNoduleDataset, XRayMassDataset, XRayHerniaDataset,
+    XRayGenderDataset
     )
 
 
@@ -41,7 +42,9 @@ class DataLoaderFactory:
             'cardiomegaly_low_res': self.create_cardiomegaly_low_res,
             'nodule_low_res': self.create_nodule_low_res,
             'mass_low_res': self.create_mass_low_res,
-            'hernia_low_res': self.create_hernia_low_res
+            'hernia_low_res': self.create_hernia_low_res,
+            'gender': self.create_gender,
+            'gender_low_res': self.create_gender_low_res
         }
 
     def get(self, config_name):
@@ -350,8 +353,30 @@ class DataLoaderFactory:
         dataset = XRayHerniaDataset(self.labels_df, self.img_dir, transform=transform)
         return DataLoader(dataset, batch_size=16, shuffle=self.is_train, num_workers=self.num_workers)
 
-    
-    
+    def create_gender(self):
+        transform_list = [
+            transforms.Resize((224, 224))
+        ]
+        if self.is_train:
+            transform_list.append(transforms.RandomHorizontalFlip())
+        transform_list.extend([
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        ])
+        transform = transforms.Compose(transform_list)
+        dataset = XRayGenderDataset(self.labels_df, self.img_dir, transform=transform)
+        return DataLoader(dataset, batch_size=16, shuffle=self.is_train, num_workers=self.num_workers)
 
-    
-
+    def create_gender_low_res(self):
+        transform_list = [
+            transforms.Resize((128, 128))
+        ]
+        if self.is_train:
+            transform_list.append(transforms.RandomHorizontalFlip())
+        transform_list.extend([
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        ])
+        transform = transforms.Compose(transform_list)
+        dataset = XRayGenderDataset(self.labels_df, self.img_dir, transform=transform)
+        return DataLoader(dataset, batch_size=16, shuffle=self.is_train, num_workers=self.num_workers)

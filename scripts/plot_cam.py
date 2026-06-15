@@ -98,7 +98,7 @@ def generate_batch_cams(
         plt.tight_layout()
         base_name = os.path.splitext(img_name)[0]
         mode_prefix = f"{mode}_" if mode != 'random' else ""
-        output_path = os.path.join(output_dir, f"{output_prefix}_{mode_prefix}{base_name}.pdf")
+        output_path = os.path.join(output_dir, f"{output_prefix}_{mode_prefix}{base_name}.png")
         fig.savefig(output_path)
         plt.close(fig) 
         
@@ -279,35 +279,45 @@ if __name__ == '__main__':
     # )
 
     # full_data_effusion_effusion_densenet_binary_15epochs
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_effusion_effusion_densenet_binary_15epochs.pth', 
+    #     num_images=10, 
+    #     mode='tp', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_effusion_effusion_densenet_binary_15epochs',
+    #     seed=1
+    # )
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_effusion_effusion_densenet_binary_15epochs.pth', 
+    #     num_images=10, 
+    #     mode='fp', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_effusion_effusion_densenet_binary_15epochs',
+    #     seed=1
+    # )
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_effusion_effusion_densenet_binary_15epochs.pth', 
+    #     num_images=10, 
+    #     mode='fn', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_effusion_effusion_densenet_binary_15epochs',
+    #     seed=1
+    # )
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_effusion_effusion_densenet_binary_15epochs.pth', 
+    #     num_images=10, 
+    #     mode='tn', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_effusion_effusion_densenet_binary_15epochs',
+    #     seed=1
+    # )
+
+    # PREGUNTA 3
     generate_batch_cams(
-        model_path='results/models/full_data_effusion_effusion_densenet_binary_15epochs.pth', 
-        num_images=10, 
+        model_path='results/models/full_data_effusion_effusion_low_res_densenet_binary_1epoch.pth', 
+        num_images=30, 
         mode='tp', 
         output_dir='results/cam', 
-        output_prefix='full_data_effusion_effusion_densenet_binary_15epochs',
-        seed=1
-    )
-    generate_batch_cams(
-        model_path='results/models/full_data_effusion_effusion_densenet_binary_15epochs.pth', 
-        num_images=10, 
-        mode='fp', 
-        output_dir='results/cam', 
-        output_prefix='full_data_effusion_effusion_densenet_binary_15epochs',
-        seed=1
-    )
-    generate_batch_cams(
-        model_path='results/models/full_data_effusion_effusion_densenet_binary_15epochs.pth', 
-        num_images=10, 
-        mode='fn', 
-        output_dir='results/cam', 
-        output_prefix='full_data_effusion_effusion_densenet_binary_15epochs',
-        seed=1
-    )
-    generate_batch_cams(
-        model_path='results/models/full_data_effusion_effusion_densenet_binary_15epochs.pth', 
-        num_images=10, 
-        mode='tn', 
-        output_dir='results/cam', 
-        output_prefix='full_data_effusion_effusion_densenet_binary_15epochs',
+        output_prefix='full_data_effusion_effusion_low_res_densenet_binary_1epoch',
         seed=1
     )

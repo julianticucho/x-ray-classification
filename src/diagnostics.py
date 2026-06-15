@@ -34,7 +34,7 @@ def plot_roc_curve(model, dataloader, device=None):
     ax.legend(loc="lower right")
     return fig
 
-def plot_confusion_matrix_binary(model, dataloader, threshold=0.5, device=None):
+def plot_confusion_matrix_binary(model, dataloader, threshold=0.5, device=None, title='Confusion Matrix'):
     """Genera la matriz de confusion para un modelo binario y devuelve la figura."""
     if device is None:
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -52,12 +52,58 @@ def plot_confusion_matrix_binary(model, dataloader, threshold=0.5, device=None):
             all_preds.extend(preds)
             all_labels.extend(labels.numpy())    
     cm = confusion_matrix(all_labels, all_preds)
+    tn, fp, fn, tp = cm.ravel()
+    prec = tp / (tp + fp) if (tp + fp) else 0.0
+    rec = tp / (tp + fn) if (tp + fn) else 0.0
+    f1 = 2 * prec * rec / (prec + rec) if (prec + rec) else 0.0
     fig, ax = plt.subplots(figsize=(6, 5))
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=ax)
-    ax.set_title('Confusion Matrix')
-    ax.set_ylabel('True Label')
-    ax.set_xlabel('Predicted Label')
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=ax,
+                xticklabels=['Neg','Pos'], yticklabels=['Neg','Pos'],
+                cbar=False, annot_kws={'size': 20})
+    ax.set_title(f'{title} | F1={f1:.3f}', fontsize=20)
+    ax.set_ylabel('True', fontsize=12)
+    ax.set_xlabel('Predicted', fontsize=12)
+    ax.tick_params(labelsize=11)
     return fig
+
+def plot_multiple_roc_curves(models_dataloaders, title='ROC Curves', figsize=(8, 6), device=None):
+    """Genera una figura con múltiples curvas ROC superpuestas.
+
+    Args:
+        models_dataloaders: lista de tuplas (model, dataloader, label)
+    """
+    if device is None:
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+    fig, ax = plt.subplots(figsize=figsize)
+    colors = plt.cm.tab10(np.linspace(0, 1, len(models_dataloaders)))
+
+    for i, (model, dataloader, label) in enumerate(models_dataloaders):
+        model.eval()
+        model.to(device)
+        all_labels = []
+        all_probs = []
+        with torch.no_grad():
+            for images, labels in tqdm(dataloader, desc=f"ROC - {label}"):
+                images = images.to(device)
+                outputs = model(images)
+                probs = torch.sigmoid(outputs).cpu().numpy()
+                all_probs.extend(probs)
+                all_labels.extend(labels.numpy())
+        fpr, tpr, _ = roc_curve(all_labels, all_probs)
+        roc_auc = auc(fpr, tpr)
+        ax.plot(fpr, tpr, color=colors[i], lw=2, label=f'{label} (AUC={roc_auc:.3f})')
+
+    ax.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    ax.set_xlim([0.0, 1.0])
+    ax.set_ylim([0.0, 1.05])
+    ax.set_xlabel('False Positive Rate', fontsize=12)
+    ax.set_ylabel('True Positive Rate', fontsize=12)
+    ax.set_title(title, fontsize=14)
+    ax.legend(loc="lower right", fontsize=9)
+    plt.tight_layout()
+    return fig
+
 
 def plot_cam_overlay(model, image_tensor, original_image=None, device=None):
     """Genera el CAM para una imagen y lo superpone usando Matplotlib."""

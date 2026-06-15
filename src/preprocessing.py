@@ -24,7 +24,8 @@ class PreprocessingConfigFactory:
             'cardiomegaly': self.config_cardiomegaly,
             'nodule': self.config_nodule,
             'mass': self.config_mass,
-            'hernia': self.config_hernia
+            'hernia': self.config_hernia,
+            'gender': self.config_gender
         }
     
     def get(self, config_name):
@@ -148,6 +149,14 @@ class PreprocessingConfigFactory:
         """Configuración para detección de Hernia."""
         self.labels_df['Hernia_Label'] = self.labels_df['Finding Labels'].apply(
             lambda x: 1 if 'Hernia' in x else 0
+        )
+        train_df, val_df, test_df = self._patient_split(val_ratio=0.1, test_ratio=0.2, seed=0)
+        return train_df, val_df, test_df
+
+    def config_gender(self):
+        """Configuración para clasificación binaria de género (F=1, M=0)."""
+        self.labels_df['Gender_Label'] = self.labels_df['Patient Gender'].apply(
+            lambda x: 1 if x == 'F' else 0
         )
         train_df, val_df, test_df = self._patient_split(val_ratio=0.1, test_ratio=0.2, seed=0)
         return train_df, val_df, test_df

@@ -1,0 +1,71 @@
+RESULTADOS PREGUNTA 3
+
+Atelectasis
+AUC = 0.710
+Matriz de confusión: TN=12549, FP=7644, FN=693, TP=1512
+F1-score = 0.266
+
+Pneumonia
+AUC = 0.635
+Matriz de confusión: TN=16708, FP=5413, FN=165, TP=112
+F1-score = 0.039
+
+Cardiomegaly
+AUC = 0.649
+Matriz de confusión: TN=3829, FP=18010, FN=30, TP=529
+F1-score = 0.055
+
+Consolidation
+AUC = 0.671
+Matriz de confusión: TN=16472, FP=4980, FN=536, TP=410
+F1-score = 0.129
+
+Edema
+AUC = 0.807
+Matriz de confusión: TN=14393, FP=7578, FN=64, TP=363
+F1-score = 0.087
+
+Effusion
+AUC = 0.813
+Matriz de confusión: TN=12722, FP=7222, FN=383, TP=2071
+F1-score = 0.353
+
+Emphysema
+AUC = 0.525
+Matriz de confusión: TN=20827, FP=1008, FN=524, TP=39
+F1-score = 0.048
+
+Fibrosis
+AUC = 0.644
+Matriz de confusión: TN=9123, FP=12921, FN=69, TP=285
+F1-score = 0.042
+
+Hernia
+AUC = 0.585
+Matriz de confusión: TN=18466, FP=3904, FN=22, TP=6
+F1-score = 0.003
+
+Infiltration
+AUC = 0.598
+Matriz de confusión: TN=8482, FP=10071, FN=1227, TP=2618
+F1-score = 0.317
+
+Mass
+AUC = 0.522
+Matriz de confusión: TN=21285, FP=0, FN=1113, TP=0
+F1-score = 0.000
+
+Nodule
+AUC = 0.529
+Matriz de confusión: TN=0, FP=21086, FN=0, TP=1312
+F1-score = 0.111 
+
+Pleural Thickening
+AUC = 0.565
+Matriz de confusión: TN=20597, FP=1046, FN=717, TP=38 
+F1-score = 0.041
+
+Pneumothorax
+AUC = 0.609
+Matriz de confusión: TN=10440, FP=10813, FN=409, TP=736
+F1-score = 0.116
