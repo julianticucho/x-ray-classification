@@ -140,6 +140,13 @@ if __name__ == '__main__':
     #     title='Hernia'
     # )
 
+    # PREGUNTA 2
+    plot_confusion_and_save(
+        model_path='results/models/full_data_gender_gender_low_res_densenet_binary_1epoch.pth', 
+        output_path='results/confusion/full_data_gender_gender_low_res_densenet_binary_1epoch.png',
+        title='Gender'
+    )
+
 
 
 

@@ -536,27 +536,27 @@ if __name__ == '__main__':
     # )
 
     # PREGUNTA 2
-    # train_model(
-    #     labels_dir='datasets/nih-chest-xrays/data/versions/3/Data_Entry_2017.csv',
-    #     img_dir=[
-    #         'datasets/nih-chest-xrays/data/versions/3/images_001/images',
-    #         'datasets/nih-chest-xrays/data/versions/3/images_002/images',
-    #         'datasets/nih-chest-xrays/data/versions/3/images_003/images',
-    #         'datasets/nih-chest-xrays/data/versions/3/images_004/images',
-    #         'datasets/nih-chest-xrays/data/versions/3/images_005/images',
-    #         'datasets/nih-chest-xrays/data/versions/3/images_006/images',
-    #         'datasets/nih-chest-xrays/data/versions/3/images_007/images',
-    #         'datasets/nih-chest-xrays/data/versions/3/images_008/images',
-    #         'datasets/nih-chest-xrays/data/versions/3/images_009/images',
-    #         'datasets/nih-chest-xrays/data/versions/3/images_010/images',
-    #         'datasets/nih-chest-xrays/data/versions/3/images_011/images',
-    #         'datasets/nih-chest-xrays/data/versions/3/images_012/images',
-    #     ],
-    #     preprocessing_name='gender',
-    #     dataloader_name='gender_low_res',
-    #     model_name='densenet_binary',
-    #     output_path='results/models/full_data_gender_gender_low_res_densenet_binary_1epoch.pth',
-    #     num_epochs=1,
-    #     lr=0.001,
-    #     num_workers=11,
-    # )
+    train_model(
+        labels_dir='datasets/nih-chest-xrays/data/versions/3/Data_Entry_2017.csv',
+        img_dir=[
+            'datasets/nih-chest-xrays/data/versions/3/images_001/images',
+            'datasets/nih-chest-xrays/data/versions/3/images_002/images',
+            'datasets/nih-chest-xrays/data/versions/3/images_003/images',
+            'datasets/nih-chest-xrays/data/versions/3/images_004/images',
+            'datasets/nih-chest-xrays/data/versions/3/images_005/images',
+            'datasets/nih-chest-xrays/data/versions/3/images_006/images',
+            'datasets/nih-chest-xrays/data/versions/3/images_007/images',
+            'datasets/nih-chest-xrays/data/versions/3/images_008/images',
+            'datasets/nih-chest-xrays/data/versions/3/images_009/images',
+            'datasets/nih-chest-xrays/data/versions/3/images_010/images',
+            'datasets/nih-chest-xrays/data/versions/3/images_011/images',
+            'datasets/nih-chest-xrays/data/versions/3/images_012/images',
+        ],
+        preprocessing_name='gender',
+        dataloader_name='gender_low_res',
+        model_name='densenet_binary',
+        output_path='results/models/full_data_gender_gender_low_res_densenet_binary_1epoch.pth',
+        num_epochs=1,
+        lr=0.001,
+        num_workers=11,
+    )

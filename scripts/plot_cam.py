@@ -313,11 +313,29 @@ if __name__ == '__main__':
     # )
 
     # PREGUNTA 3
+    # generate_batch_cams(
+    #     model_path='results/models/full_data_effusion_effusion_low_res_densenet_binary_1epoch.pth', 
+    #     num_images=30, 
+    #     mode='tp', 
+    #     output_dir='results/cam', 
+    #     output_prefix='full_data_effusion_effusion_low_res_densenet_binary_1epoch',
+    #     seed=1
+    # )
+
+    # PREGUNTA 2
     generate_batch_cams(
-        model_path='results/models/full_data_effusion_effusion_low_res_densenet_binary_1epoch.pth', 
-        num_images=30, 
+        model_path='results/models/full_data_gender_gender_low_res_densenet_binary_1epoch.pth', 
+        num_images=10, 
         mode='tp', 
         output_dir='results/cam', 
-        output_prefix='full_data_effusion_effusion_low_res_densenet_binary_1epoch',
+        output_prefix='full_data_gender_gender_low_res_densenet_binary_1epoch',
+        seed=1
+    )
+    generate_batch_cams(
+        model_path='results/models/full_data_gender_gender_low_res_densenet_binary_1epoch.pth', 
+        num_images=10, 
+        mode='tn', 
+        output_dir='results/cam', 
+        output_prefix='full_data_gender_gender_low_res_densenet_binary_1epoch',
         seed=1
     )

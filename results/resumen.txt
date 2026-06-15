@@ -69,3 +69,10 @@ Pneumothorax
 AUC = 0.609
 Matriz de confusión: TN=10440, FP=10813, FN=409, TP=736
 F1-score = 0.116
+
+RESULTADOS PREGUNTA 3
+
+Gender
+AUC = 0.989
+Matriz de confusión: TN=9944, FP=3066, FN=92, TP=9296
+F1-score = 0.855

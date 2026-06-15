@@ -62,9 +62,9 @@ if __name__ == '__main__':
     #     output_path='results/roc/full_data_effusion_effusion_densenet_binary_15epochs.pdf'
     # )
 
-    # RESULTADOS PREGUNTA 3
+    # PREGUNTA 3
     # models_dir = 'results/models'
-    # modelos_pregunta1 = [
+    # modelos_pregunta3 = [
     #     ('full_data_binary_binary_low_res_densenet_binary_1epoch.pth', 'Pneumonia'),
     #     ('full_data_effusion_effusion_low_res_densenet_binary_1epoch.pth', 'Effusion'),
     #     ('full_data_atelectasis_atelectasis_low_res_densenet_binary_1epoch.pth', 'Atelectasis'),
@@ -80,12 +80,24 @@ if __name__ == '__main__':
     #     ('full_data_mass_mass_low_res_densenet_binary_1epoch.pth', 'Mass'),
     #     ('full_data_hernia_hernia_low_res_densenet_binary_1epoch.pth', 'Hernia'),
     # ]
-    # paths_labels = [(os.path.join(models_dir, name), label) for name, label in modelos_pregunta1]
+    # paths_labels = [(os.path.join(models_dir, name), label) for name, label in modelos_pregunta3]
     # plot_multiple_roc_and_save(
     #     paths_labels,
-    #     output_path='results/roc/pregunta1_roc_all.png',
+    #     output_path='results/roc/pregunta3_roc_all.png',
     #     title='Curva ROC modelos binarios'
     # )
+
+    # PREGUNTA 2
+    models_dir = 'results/models'
+    modelos_pregunta2 = [
+        ('full_data_gender_gender_low_res_densenet_binary_1epoch.pth', 'Gender'),
+    ]
+    paths_labels = [(os.path.join(models_dir, name), label) for name, label in modelos_pregunta2]
+    plot_multiple_roc_and_save(
+        paths_labels,
+        output_path='results/roc/pregunta2_roc_all.png',
+        title='Curva ROC clasificación por sexo'
+    )
 
 
     
